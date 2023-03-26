@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
       setAuth(result);
 
-      navigate('/catalog');
+      navigate('/');
     } catch (error) {
       console.log('There is a problem');
     }

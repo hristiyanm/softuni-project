@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { AuthContext } from '../contexts/AuthContext';
-import SearchBar from './SearchBar';
+import { AuthContext } from '../../contexts/AuthContext';
+import SearchBar from '../SearchBar/SearchBar';
+import './Header.css';
 
 export default function Header() {
   const { isAuthenticated, userEmail } = useContext(AuthContext);
@@ -15,18 +16,24 @@ export default function Header() {
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto'>{/* Add other NavLinks here */}</Nav>
-        <Nav className='ml-auto'>
+        <Nav className='ml-auto align-items-center'>
           {isAuthenticated && (
             <div id='user'>
-              <span>{userEmail}</span>
-              <Link to='/logout'>Logout</Link>
+              <span className='mr-2 navComponents'>{userEmail}</span>
+              <Link to='/logout' className='ml-2 navComponents'>
+                Logout
+              </Link>
             </div>
           )}
 
           {!isAuthenticated && (
             <div id='guest'>
-              <Link to='/login'>Login</Link>
-              <Link to='/register'>Register</Link>
+              <Link to='/login' className='mr-2 navComponents'>
+                Login
+              </Link>
+              <Link to='/register' className='mr-2 navComponents'>
+                Register
+              </Link>
             </div>
           )}
           <SearchBar />

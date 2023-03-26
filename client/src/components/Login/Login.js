@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { useForm } from '../hooks/useForm';
-import { useAuthContext } from '../contexts/AuthContext';
+import { useForm } from '../../hooks/useForm';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function Login() {
   const { onLoginSubmit } = useAuthContext();
@@ -18,11 +18,10 @@ export default function Login() {
   return (
     <Container className='d-flex justify-content-center'>
       <Form method='POST' onSubmit={onSubmit}>
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group controlId='email'>
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type='email'
-            id='email'
             name='email'
             placeholder='Enter email'
             value={values.email}
@@ -31,11 +30,10 @@ export default function Login() {
           />
         </Form.Group>
 
-        <Form.Group controlId='formBasicPassword'>
+        <Form.Group controlId='password'>
           <Form.Label>Password</Form.Label>
           <Form.Control
             type='password'
-            id='password'
             name='password'
             placeholder='Password'
             value={values.password}
