@@ -1,9 +1,9 @@
 import { requestFactory } from './requester';
 
 const baseUrl = 'http://localhost:3030/data/comments';
-const request = requestFactory();
 
 export const getAll = async (movieId) => {
+  const request = requestFactory();
   const searchQuery = encodeURIComponent(`movieId="${movieId}"`);
   const relationQuery = encodeURIComponent(`author=_ownerId:users`);
 
@@ -16,6 +16,7 @@ export const getAll = async (movieId) => {
 };
 
 export const create = async (movieId, comment) => {
+  const request = requestFactory();
   const result = await request.post(baseUrl, { movieId, comment });
 
   return result;

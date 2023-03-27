@@ -83,19 +83,17 @@ function MovieDetails() {
       {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit} />}
       <div className='details-comments'>
         <h2>Comments:</h2>
-        <ul>
-          {comment.comments &&
-            comment.comments.map((x) => (
-              <Card key={x._id} className='comment'>
-                <Card.Body>
-                  <Card.Subtitle className='mb-2 text-muted'>
-                    {x.author.email}
-                  </Card.Subtitle>
-                  <Card.Text>{x.comment}</Card.Text>
-                </Card.Body>
-              </Card>
-            ))}
-        </ul>
+        {comment.comments &&
+          comment.comments.map((x) => (
+            <Card key={x._id} className='comment'>
+              <Card.Body>
+                <Card.Subtitle className='mb-2 text-muted'>
+                  {x.author.email}
+                </Card.Subtitle>
+                <Card.Text>{x.comment}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
 
         {!comment.comments?.length && (
           <p className='no-comment'>No comments.</p>
