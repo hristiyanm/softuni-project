@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
       navigate('/');
     } catch (error) {
-      console.log('There is a problem');
+      console.log('There is a problem on Login');
     }
   };
 
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
       navigate('/');
     } catch (error) {
-      console.log('There is a problem');
+      console.log('There is a problem on Register');
     }
   };
 
@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     userId: auth._id,
     token: auth.accessToken,
     userEmail: auth.email,
+    username: auth.username,
     isAuthenticated: !!auth.accessToken,
   };
 

@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useAuthContext } from '../../contexts/AuthContext';
+import * as commentService from '../../services/commentService';
+import { AddComment } from './AddComment/AddComment';
+import { commentReducer } from '../../reducers/commentReducer';
 
 function MovieDetails() {
   const { id } = useParams();
+  const { userId, isAuthenticated, userEmail } = useAuthContext();
+  const [comment, dispatch] = useReducer(commentReducer, {});
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
@@ -19,11 +25,30 @@ function MovieDetails() {
         setMovie(data);
       });
   }, [id]);
-  // want movie title, overview, release year, genres, runtime
+
+  useEffect(() => {
+    commentService.getAll(id).then((comments) => {
+      const commentsState = {
+        comments,
+      };
+
+      dispatch({ type: 'COMMENT_FETCH', payload: commentsState });
+    });
+  }, [id]);
 
   if (!movie) {
     return <div>Loading...</div>;
   }
+
+  const onCommentSubmit = async (values) => {
+    const response = await commentService.create(id, values.comment);
+
+    dispatch({
+      type: 'COMMENT_ADD',
+      payload: response,
+      userEmail,
+    });
+  };
 
   return (
     <Container style={{ width: '60%', margin: 'auto' }}>
@@ -55,6 +80,27 @@ function MovieDetails() {
           </div>
         </Col>
       </Row>
+      {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit} />}
+      <div className='details-comments'>
+        <h2>Comments:</h2>
+        <ul>
+          {comment.comments &&
+            comment.comments.map((x) => (
+              <Card key={x._id} className='comment'>
+                <Card.Body>
+                  <Card.Subtitle className='mb-2 text-muted'>
+                    {x.author.email}
+                  </Card.Subtitle>
+                  <Card.Text>{x.comment}</Card.Text>
+                </Card.Body>
+              </Card>
+            ))}
+        </ul>
+
+        {!comment.comments?.length && (
+          <p className='no-comment'>No comments.</p>
+        )}
+      </div>
     </Container>
   );
 }

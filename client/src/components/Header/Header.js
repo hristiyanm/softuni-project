@@ -19,7 +19,10 @@ export default function Header() {
         <Nav className='ml-auto align-items-center'>
           {isAuthenticated && (
             <div id='user'>
-              <span className='mr-2 navComponents'>{userEmail}</span>
+              <Link to='/myProfile' className='ml-2 navComponents'>
+                {userEmail}
+              </Link>
+              {/* <span className='mr-2 navComponents'>{userEmail}</span> */}
               <Link to='/logout' className='ml-2 navComponents'>
                 Logout
               </Link>

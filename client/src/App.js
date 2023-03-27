@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import SearchResult from './components/SearchResult/SearchResult';
 import { AuthProvider } from './contexts/AuthContext';
 import { Logout } from './components/Logout/Logout';
+import MyProfile from './components/MyProfile/MyProfile';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/logout' element={<Logout />} />
           <Route path='/search' element={<SearchResult />} />
+          <Route path='/myProfile' element={<MyProfile />} />
         </Routes>
       </div>
     </AuthProvider>
